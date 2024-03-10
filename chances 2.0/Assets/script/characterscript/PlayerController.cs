@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+    //Raycast
         RaycastHit hit;
         Vector3 castPos = transform.position;
         castPos.y +=1;
@@ -42,6 +43,11 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+    //pause movement
+        if(dialogueManager.IsActive == true)
+        return; 
+
+    //player movement
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
@@ -53,9 +59,10 @@ public class PlayerController : MonoBehaviour
         if(movement != Vector3.zero)
         {
             anim.SetFloat(lastHorizontal, movement.x);
-            anim.SetFloat(lastVertical, movement.y);
+            anim.SetFloat(lastVertical, movement.z);
         }
 
+    //dialogueplayer
         if(Input.GetKeyDown(KeyCode.Space))
         {
             if(CameraSwitcher.IsActiveCamera(overworldCam))
@@ -66,7 +73,7 @@ public class PlayerController : MonoBehaviour
             {
                 CameraSwitcher.SwitchCamera(overworldCam);
             }
-        }
+        } 
 
     }
 
